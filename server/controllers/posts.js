@@ -1,4 +1,4 @@
-import PostMessage from "../models/postMessage";
+import PostMessage from "../models/postMessage.js";
 
 
 
