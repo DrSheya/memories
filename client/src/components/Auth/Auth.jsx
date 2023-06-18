@@ -3,46 +3,50 @@ import { Avatar, Button, Paper, Grid, Typography, Container } from '@material-ui
 import { GoogleLogin, googleLogout } from '@react-oauth/google';
 import { useDispatch } from 'react-redux';
 import Icon from './icon';
+import { withRouter } from 'react-router-dom';
 
 
 import LockOutlinedIcon from '@material-ui/icons/LockOpenOutlined';
 import { AUTH } from '../../constants/actionTypes';
 import useStyles from './styles.jsx';
 import Input from './Input.jsx';
+import { signin, signup } from '../../actions/auth';
+
+const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' };
 
 
-
-export const Auth = () => {
+export const Auth = ({ history }) => {
   const classes = useStyles();
   const [showPassword, setShowPassword] = useState(false);
   const [ isSignUp, setIsSignUp] = useState(false);
   const dispatch = useDispatch();
+  const [ formData, setFromData] = useState();
+  
 
-  const handleSubmit = () => {
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    
+    if (isSignUp) {
+      dispatch(signup(formData, history));
+    }else{
+      dispatch(signin(formData, history));
+    }
 
   };
-  const handleChange = () => {
 
+
+  const handleChange = (e) => {
+    setFromData({...formData, [e.target.name]: e.target.value});
   };
+
+
   const handleShowPassword = () => setShowPassword((prevShowPassword) => !prevShowPassword);
 
   const switchMode = () => {
     setIsSignUp ((prevIsSignUp => !prevIsSignUp));
     handleShowPassword(false);
-  };
-
-  const googleSuccess = async (res) => {
-    const result = res?.profileObj;
-    const token = res?.tokenId;
-
-    try {
-      dispatch({ type: AUTH, data: {result, token } });
-    } catch (error) {
-      console.log (error);
-    }
-  };
-  const googleError = () => {
-    alert ('Google Sign In was unsuccessful. Please try again later');
   };
 
   return (
