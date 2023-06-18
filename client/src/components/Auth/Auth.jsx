@@ -66,17 +66,6 @@ export const Auth = () => {
             <Input name='password' label='Password' handleChange= {handleChange} type={showPassword ? 'text' : 'password'} handleShowPassword={handleShowPassword} />
             { isSignUp && <Input name='confirmPassword' label='Repeat Password' handleChange={handleChange} type='password' /> }
           </Grid>
-          <GoogleLogin
-            clientId='243177062820-goq7tltrbhoes3g7mtk6suqbtnoo7j54.apps.googleusercontent.com'
-            render={(renderProps) => (
-              <Button className={classes.googleButton} color="primary" fullWidth onClick={renderProps.onClick} disabled={renderProps.disabled} startIcon={<Icon />} variant="contained">
-                Google Sign In
-              </Button>
-            )}
-            onSuccess={googleSuccess}
-            onFailure={googleError}
-            cookiePolicy="single_host_origin"
-          />
           <Button type='submit' fullWidth variant='contained' color='primary' className={classes.submit}>
             { isSignUp ? 'Sign Up' : 'Sign In'}
           </Button>
