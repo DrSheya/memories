@@ -3,7 +3,7 @@ import { Avatar, Button, Paper, Grid, Typography, Container } from '@material-ui
 import { GoogleLogin, googleLogout } from '@react-oauth/google';
 import { useDispatch } from 'react-redux';
 import Icon from './icon';
-import { withRouter } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 import LockOutlinedIcon from '@material-ui/icons/LockOpenOutlined';
@@ -15,12 +15,14 @@ import { signin, signup } from '../../actions/auth';
 const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' };
 
 
-export const Auth = ({ history }) => {
+export const Auth = () => {
+  const [form, setForm] = useState(initialState);
   const classes = useStyles();
   const [showPassword, setShowPassword] = useState(false);
   const [ isSignUp, setIsSignUp] = useState(false);
   const dispatch = useDispatch();
   const [ formData, setFromData] = useState();
+  const navigate = useNavigate();
   
 
 
@@ -29,9 +31,9 @@ export const Auth = ({ history }) => {
     e.preventDefault();
     
     if (isSignUp) {
-      dispatch(signup(formData, history));
+      dispatch(signup(formData, navigate));
     }else{
-      dispatch(signin(formData, history));
+      dispatch(signin(formData, navigate));
     }
 
   };
@@ -46,7 +48,7 @@ export const Auth = ({ history }) => {
 
   const switchMode = () => {
     setIsSignUp ((prevIsSignUp => !prevIsSignUp));
-    handleShowPassword(false);
+    setShowPassword(false);
   };
 
   return (
