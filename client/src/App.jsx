@@ -8,14 +8,8 @@ import Auth from './components/Auth/Auth.jsx';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-const App = () => {
-
-
-
-
-
-    return (
-        
+const App = () => (
+       
         <BrowserRouter>
             <Container maxidth="lg">
                 <Navbar />
@@ -25,10 +19,8 @@ const App = () => {
                 </Routes>
             </Container>
         </BrowserRouter>
-       
 
-    );
-}
+);
 
 
 export default App;
